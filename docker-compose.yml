@@ -1,0 +1,53 @@
+# services:
+#   backend:
+#     build:
+#       context: ./driver_shopper_backend
+#     ports:
+#       - "8080:8080"
+#     environment:
+#       - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+#     restart: always
+#     volumes:
+#       - ./driver_shopper_backend:/usr/src/app  # Monte o diretório local no contêiner
+#     networks:
+#       - app-network
+
+#   frontend:
+#     build:
+#       context: ./drive_shopeer
+#     ports:
+#       - "80:80"
+#     restart: always
+#     networks:
+#       - app-network
+
+# networks:
+#   app-network:
+#     driver: bridge
+services:
+  backend:
+    build:
+      context: ./driver_shopper_backend
+    ports:
+      - "8080:8080"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    restart: always
+    volumes:
+      - ./driver_shopper_backend:/usr/src/app
+      - /usr/src/app/node_modules # Garante que os node_modules não sejam sobrescritos
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./drive_shopeer  # Também verifique o caminho para o frontend
+    ports:
+      - "80:80"
+    restart: always
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
