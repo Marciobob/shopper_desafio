@@ -9,8 +9,7 @@ yarn-error.log*
 node_modules/
 
 # Diretórios de build
-dist/
-build/
+
 
 # Arquivos de ambiente
 .env
